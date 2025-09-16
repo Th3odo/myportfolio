@@ -70,16 +70,27 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
-        </div>        <!-- Add this in your <head> before your script/style tags -->
-        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+     <!-- Navbar -->
+  <nav class="navbar-blur fixed w-full top-0 z-50 shadow-lg">
+    <div class="container mx-auto px-4 flex items-center justify-between h-16">
+      <div class="text-yellow-500 font-bold text-2xl tracking-wide">Theodore</div>
+      <div class="hidden md:flex space-x-8">
+        <a href="index.html" class="text-white hover:text-yellow-500 transition-colors font-semibold">Home</a>
+        <a href="about.html" class="text-white hover:text-yellow-500 transition-colors font-semibold">About</a>
+        <a href="services.html" class="text-white hover:text-yellow-500 transition-colors font-semibold">Projects</a>
+        <a href="contactform.html" class="text-white hover:text-yellow-500 transition-colors font-semibold">Contact</a>
       </div>
-      <div id="mobile-menu" class="hidden md:hidden flex flex-col space-y-4 pb-4 text-center bg-black/80 backdrop-blur-sm">
-        <a href="index.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2">Home</a>
-        <a href="about.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2">About</a>
-        <a href="services.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2">Projects</a>
-        <a href="contactform.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2">Contact</a>
-      </div>
+      <button id="menu-toggle" class="md:hidden text-yellow-500 focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden flex flex-col space-y-4 pb-4 text-center bg-black/90 backdrop-blur-lg">
+      <a href="index.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2 font-semibold">Home</a>
+      <a href="about.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2 font-semibold">About</a>
+      <a href="services.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2 font-semibold">Projects</a>
+      <a href="contactform.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2 font-semibold">Contact</a>
     </div>
   </nav>
 
