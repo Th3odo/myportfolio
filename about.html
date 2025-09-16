@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Divine Grace</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-black via-gray-800 to-gray-900 text-white">
+  <!-- Navbar -->
+  <nav class="bg-black/70 backdrop-blur-sm fixed w-full top-0 z-50">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between h-16">
+        <div class="text-yellow-300 font-bold text-xl">Divine Grace</div>
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="text-white hover:text-yellow-300 transition-colors">Home</a>
+          <a href="about.html" class="text-white hover:text-yellow-300 transition-colors">About</a>
+          <a href="services.html" class="text-white hover:text-yellow-300 transition-colors">Projects</a>
+          <a href="contactform.html" class="text-white hover:text-yellow-300 transition-colors">Contact</a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button 
+          class="md:hidden text-white focus:outline-none"
+          onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+          aria-label="Toggle menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 py-4 bg-black/50 backdrop-blur-sm">
+        <a href="index.html" class="text-white hover:text-yellow-300 transition-colors px-4 py-2">Home</a>
+        <a href="about.html" class="text-white hover:text-yellow-300 transition-colors px-4 py-2">About</a>
+        <a href="services.html" class="text-white hover:text-yellow-300 transition-colors px-4 py-2">Projects</a>
+        <a href="contactform.html" class="text-white hover:text-yellow-300 transition-colors px-4 py-2">Contact</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container mx-auto px-4 py-24 pt-32">
+    <h2 class="text-4xl font-bold mb-8 text-center text-yellow-300">About Me</h2>
+    <div class="bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-lg shadow-lg border border-yellow-300/20 max-w-2xl mx-auto flex flex-col items-center">
+      <!-- Profile Image Placeholder -->
+      <div class="w-64 h-64 mb-6 rounded-full overflow-hidden border-4 border-yellow-300 shadow-lg bg-gray-700 flex items-center justify-center">
+        <!-- Replace the src below with your image file -->
+        <img src="Myself.jpg" alt="Theodore Hororo" class="object-cover w-full h-full" />
+        <!-- If you don't have an image yet, you can use a placeholder: -->
+        <!-- <span class="text-gray-400 text-6xl">👤</span> -->
+      </div>
+      <p class="mb-4 text-gray-200">
+        <span class="text-yellow-300 font-semibold">Theodore Hororo</span> a dedicated ICT professional and proud graduate of Durban University of Technology (DUT), where I earned my Diploma in ICT Applications Development. Currently, I’m furthering my education by pursuing an Advanced Diploma, deepening my expertise in software development, systems design, and modern application technologies.
+        <br><br>
+        With a strong foundation in programming, database management, and application development, I enjoy building practical, user-friendly solutions that solve real-world challenges. I’m particularly passionate about mobile and web development, and continuously strive to stay current with emerging tech trends.
+      </p>
+      <p class="text-gray-200">
+        Outside of academics and coding, I’m an avid rugby player. The sport has taught me discipline, teamwork, and resilience — qualities I carry with me into my academic and professional life.
+        <br><br>
+        Driven, curious, and committed to growth, I’m always looking for opportunities to learn, collaborate, and create impact through technology.
+      </p>
+    </div>
+  </div>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.querySelector('[aria-label="Toggle menu"]');
+    const menu = document.getElementById("mobile-menu");
+    if (menuToggle && menu) {
+      // Toggle menu on button click
+      menuToggle.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+      });
+      // Close menu when a link is clicked
+      menu.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          menu.classList.add("hidden");
+        });
+      });
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Theodore | Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+    /* Theme Variables */
+    :root {
+      /* Light theme defaults */
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --section-bg: #f1f5f9;
+      --text-primary: #001f3f;
+      --text-secondary: #003366;
+      --accent-color: #d97706;
+      --border-color: #e2e8f0;
+      --link-color: #0056b3;
+      --link-hover: #003d7a;
+      --button-bg: #f9f9f9;
+      --card-bg: #ffffff;
+      --footer-color: #003366;
+    }
+
+    [data-theme="dark"] {
+      /* Dark theme overrides */
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --section-bg: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #e2e8f0;
+      --accent-color: #f59e0b;
+      --border-color: #334155;
+      --link-color: #646cff;
+      --link-hover: #747bff;
+      --button-bg: #1a1a1a;
+      --card-bg: #1e293b;
+      --footer-color: #aaa;
+    }
+
+    /* Section Backgrounds */
+    .section-bg {
+      background-color: var(--section-bg);
+      transition: background-color 0.3s ease;
+    }
+
+    /* Text Colors */
+    body {
+      color: var(--text-primary);
+    }
+
+    .text-gray-300 {
+      color: var(--text-secondary);
+    }
+
+    /* Links */
+    a {
+      color: var(--link-color);
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--link-hover);
+    }
+
+    /* Enhanced Card Styling */
+    .service-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+    }
+
+    [data-theme="light"] .service-card {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="dark"] .service-card {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Slideshow Styles */
+    .slideshow-container {
+      position: relative;
+      max-width: 100%;
+      height: 400px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: 
+        opacity 1s ease-in-out,
+        transform 0.4s cubic-bezier(.68,-0.55,.27,1.55),
+        box-shadow 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+      will-change: transform, box-shadow;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-color);
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .slide:hover {
+      transform: scale(1.04) rotate(-1deg);
+      box-shadow: 0 8px 32px 0 rgba(245, 158, 11, 0.25), 0 2px 8px 0 rgba(0,0,0,0.15);
+      z-index: 2;
+    }
+
+    .slide1 {
+      background-image: url('https://www.foldabox.co.uk/cdn/shop/products/Navy_Blue_Large_Hero_Shot_ribbon_detail_a6e578fd-ae4f-4701-9f02-4c1dd24246d7_2000x.jpg?v=1624494068');
+      font-size: 36px;
+    }
+
+    .slide2 {
+      background-image: url('https://i.pinimg.com/originals/af/96/c9/af96c99ad38c60eeed4aca5dfca5c0d9.jpg');
+      font-size: 36px;
+    }
+
+    .slide3 {
+      background-image: url('https://www.republicanpost.sg/wp-content/uploads/2021/10/capturing-memories-with-film-photography-720.jpg');
+      font-size: 36px;
+    }
+
+    /* Dot Styles */
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .dot {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: var(--text-secondary);
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .dot:hover {
+      background-color: var(--accent-color);
+    }
+
+    .dot.active {
+      background-color: var(--accent-color);
+    }
+
+    /* Form Styles */
+    .form-error {
+      color: #fca5a5;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    /* Word Animations */
+    .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      margin-right: 8px;
+      animation: wordIn 0.6s ease-out forwards;
+    }
+
+    @keyframes wordIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Staggered animation delays for initial load and hover */
+    .slide-text .word {
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .slide-text:hover .word {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .slide-text {
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      max-width: 80%;
+      color: white !important;
+      text-align: center;
+      cursor: pointer;
+      line-height: 1.6;
+    }
+
+    /* Line break styling */
+    .line-break {
+      display: block;
+      height: 20px;
+    }
+
+    /* Smooth transitions */
+    * {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    /* Apply theme variables */
+    body {
+      background-color: var(--bg-primary);
+    }
+
+    .bg-gray-800 {
+      background-color: var(--bg-secondary);
+    }
+
+    .border-yellow-500 {
+      border-color: var(--accent-color);
+    }
+
+    .text-yellow-500 {
+      color: var(--accent-color);
+    }
+
+    .bg-yellow-500 {
+      background-color: var(--accent-color);
+    }
+
+    .border-gray-600 {
+      border-color: var(--border-color);
+    }
+
+    /* Form input styling */
+    .form-input {
+      background-color: var(--bg-secondary);
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .form-input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    /* Navbar text colors */
+    [data-theme="light"] nav a,
+    [data-theme="light"] #mobile-menu a {
+      color: var(--text-primary);
+    }
+
+    [data-theme="light"] nav a:hover,
+    [data-theme="light"] #mobile-menu a:hover {
+      color: var(--accent-color);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Add this to your <style> section for extra animation */
+    .fancy-word {
+      color: var(--accent-color);
+      font-weight: bold;
+      text-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+      animation: popIn 0.7s cubic-bezier(.68,-0.55,.27,1.55) both;
+      display: inline-block;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.7) rotate(-10deg); opacity: 0; }
+      60% { transform: scale(1.1) rotate(2deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0); }
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s forwards;
+    }
+    .fade-in.delay-1 { animation-delay: 0.3s; }
+    .fade-in.delay-2 { animation-delay: 0.6s; }
+    .fade-in.delay-3 { animation-delay: 0.9s; }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .card-hover {
+      transition: transform 0.3s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.3s;
+    }
+    .card-hover:hover {
+      transform: translateY(-8px) scale(1.04);
+      box-shadow: 0 8px 32px 0 rgba(245, 158, 11, 0.25), 0 2px 8px 0 rgba(0,0,0,0.15);
+      border-color: #f59e0b;
+    }
+    .navbar-blur {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+    }
+    .gradient-text {
+      background: linear-gradient(90deg, #f59e0b 0%, #f8fafc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+    .btn-animated {
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .btn-animated::after {
+      content: "";
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(90deg, #f59e0b 0%, #f8fafc 100%);
+      opacity: 0.2;
+      transition: left 0.4s;
+      z-index: 0;
+    }
+    .btn-animated:hover::after {
+      left: 0;
+    }
+    .btn-animated span {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body class="min-h-screen" data-theme="dark">
+
+  <!-- Navbar -->
+  <nav class="navbar-blur fixed w-full top-0 z-50 shadow-lg">
+    <div class="container mx-auto px-4 flex items-center justify-between h-16">
+      <div class="text-yellow-500 font-bold text-2xl tracking-wide">Theodore</div>
+      <div class="hidden md:flex space-x-8">
+        <a href="index.html" class="text-white hover:text-yellow-500 transition-colors font-semibold">Home</a>
+        <a href="about.html" class="text-white hover:text-yellow-500 transition-colors font-semibold">About</a>
+        <a href="services.html" class="text-white hover:text-yellow-500 transition-colors font-semibold">Projects</a>
+        <a href="contactform.html" class="text-white hover:text-yellow-500 transition-colors font-semibold">Contact</a>
+      </div>
+      <button id="menu-toggle" class="md:hidden text-yellow-500 focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden flex flex-col space-y-4 pb-4 text-center bg-black/90 backdrop-blur-lg">
+      <a href="index.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2 font-semibold">Home</a>
+      <a href="about.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2 font-semibold">About</a>
+      <a href="services.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2 font-semibold">Projects</a>
+      <a href="contactform.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2 font-semibold">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-32 pb-16 text-center fade-in relative overflow-hidden">
+    <!-- Artistic background shapes -->
+    <div class="absolute left-0 top-0 w-72 h-72 bg-yellow-500 opacity-20 rounded-full blur-2xl animate-pulse"></div>
+    <div class="absolute right-0 bottom-0 w-96 h-96 bg-indigo-500 opacity-10 rounded-full blur-3xl animate-pulse"></div>
+    <div class="relative z-10">
+      <img src="Myself.jpg" alt="Profile" class="mx-auto rounded-full w-40 h-40 mb-6 shadow-2xl border-4 border-yellow-500 animate__animated animate__fadeInDown">
+      <h1 class="text-6xl md:text-7xl font-extrabold gradient-text mb-4 tracking-tight animate__animated animate__fadeInUp">
+        <span class="fancy-word">Theodore</span>
+      </h1>
+      <p class="text-2xl md:text-3xl text-yellow-500 mb-4 fade-in delay-1 font-semibold animate__animated animate__fadeIn">
+        Web Developer & Creative Designer
+      </p>
+      <p class="max-w-xl mx-auto text-gray-300 mb-8 fade-in delay-2 text-lg italic animate__animated animate__fadeInUp">
+        <span class="fancy-word">Art</span> meets <span class="fancy-word">Code</span>.<br>
+        I create digital experiences that are <span class="fancy-word">beautiful</span>, <span class="fancy-word">functional</span>, and <span class="fancy-word">memorable</span>.<br>
+        <span class="text-yellow-500 font-bold">Let’s build something inspiring together.</span>
+      </p>
+      <a href="contactform.html" class="btn-animated inline-block bg-yellow-500 text-black font-bold py-3 px-10 rounded-full shadow-xl hover:bg-yellow-600 transition-colors text-xl fade-in delay-3 animate__animated animate__pulse"><span>Contact Me</span></a>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="container mx-auto px-4 py-12 grid md:grid-cols-3 gap-8 fade-in delay-2">
+    <div class="card-hover bg-gray-900 border border-gray-700 rounded-xl p-8 shadow-lg text-center transition-all">
+      <img src="https://cdn-icons-png.flaticon.com/512/919/919827.png" alt="Web Dev" class="mx-auto mb-4 w-16 h-16 animate-bounce">
+      <h2 class="text-2xl font-bold text-yellow-500 mb-2">Web Development</h2>
+      <p class="text-gray-300 mb-4">HTML, CSS, JavaScript, React, Tailwind, Node.js</p>
+    </div>
+    <div class="card-hover bg-gray-900 border border-gray-700 rounded-xl p-8 shadow-lg text-center transition-all">
+      <img src="https://cdn-icons-png.flaticon.com/512/2922/2922510.png" alt="Design" class="mx-auto mb-4 w-16 h-16 animate-bounce">
+      <h2 class="text-2xl font-bold text-yellow-500 mb-2">UI/UX Design</h2>
+      <p class="text-gray-300 mb-4">Figma, Adobe XD, Responsive Design, Prototyping</p>
+    </div>
+    <div class="card-hover bg-gray-900 border border-gray-700 rounded-xl p-8 shadow-lg text-center transition-all">
+      <img src="https://cdn-icons-png.flaticon.com/512/2917/2917992.png" alt="Photography" class="mx-auto mb-4 w-16 h-16 animate-bounce">
+      <h2 class="text-2xl font-bold text-yellow-500 mb-2">Photography</h2>
+      <p class="text-gray-300 mb-4">Event, Portrait, Product, Editing</p>
+    </div>
+  </section>
+
+  <!-- Projects Preview Section -->
+  <section class="container mx-auto px-4 py-12 text-center fade-in delay-3">
+    <h2 class="text-3xl font-bold text-yellow-500 mb-4">Featured Projects</h2>
+    <p class="text-gray-300 mb-6 max-w-2xl mx-auto">Explore some of my recent work in web development, design, and photography.</p>
+    <a href="services.html" class="btn-animated inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full shadow hover:bg-yellow-600 transition-colors"><span>View Projects</span></a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-300 py-8 mt-16">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+      <div class="mb-4 md:mb-0">
+        <span class="font-bold text-yellow-500 text-lg">Theodore</span> &copy; <span id="current-year"></span>
+      </div>
+      <div class="flex space-x-6">
+        <a href="about.html" class="hover:text-yellow-500 transition">About</a>
+        <a href="services.html" class="hover:text-yellow-500 transition">Projects</a>
+        <a href="contactform.html" class="hover:text-yellow-500 transition">Contact</a>
+      </div>
+      <div>
+        <a href="mailto:theodore@email.com" class="hover:text-yellow-500 transition">theodore@email.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById("menu-toggle").addEventListener("click", function() {
+      document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+    document.querySelectorAll("#mobile-menu a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("mobile-menu").classList.add("hidden");
+      });
+    });
+
+    // Set current year in footer
+    document.getElementById("current-year").textContent = new Date().getFullYear();
+
+    // Fade-in animation for sections
+    document.querySelectorAll('.fade-in').forEach((el, i) => {
+      setTimeout(() => {
+        el.style.opacity = 1;
+        el.style.transform = 'none';
+      }, 200 + i * 200);
+    });
+  </script>
+</body>
+</html>

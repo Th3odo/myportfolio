@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Divine Grace</title>
+  <!-- Add this in your <head> before your script/style tags -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --section-bg: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #e2e8f0;
+      --accent-color: #f59e0b;
+      --border-color: #334155;
+      --footer-color: #aaa;
+    }
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+    }
+    .section-bg {
+      background-color: var(--section-bg);
+    }
+    .form-error {
+      color: #fca5a5;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+    .text-yellow-500 { color: var(--accent-color); }
+    .bg-yellow-500 { background-color: var(--accent-color); }
+    .border-yellow-500 { border-color: var(--accent-color); }
+    .form-input {
+      background-color: var(--bg-secondary);
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+    .form-input::placeholder {
+      color: var(--text-secondary);
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="bg-black/70 backdrop-blur-sm fixed w-full top-0 z-50">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between h-16">
+        <div class="text-yellow-500 font-bold text-xl">Divine Grace</div>
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="text-white hover:text-yellow-500 transition-colors">Home</a>
+          <a href="index.html#about" class="text-white hover:text-yellow-500 transition-colors">About</a>
+          <a href="index.html#services" class="text-white hover:text-yellow-500 transition-colors">Projects</a>
+          <a href="contactform.html" class="text-white hover:text-yellow-500 transition-colors">Contact</a>
+        </div>
+        <div class="flex items-center gap-4">
+          <!-- Theme Toggle Button (optional, remove if not needed) -->
+          <button id="theme-toggle" class="p-2 rounded-full focus:outline-none hover:bg-gray-700 transition-colors" title="Toggle theme">
+            <span id="theme-icon">☀️</span>
+          </button>
+          <button id="menu-toggle" class="md:hidden text-white focus:outline-none" title="Toggle menu">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>        <!-- Add this in your <head> before your script/style tags -->
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden flex flex-col space-y-4 pb-4 text-center bg-black/80 backdrop-blur-sm">
+        <a href="index.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2">Home</a>
+        <a href="about.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2">About</a>
+        <a href="services.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2">Projects</a>
+        <a href="contactform.html" class="text-white hover:text-yellow-500 transition-colors px-4 py-2">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contact Section -->
+  <div class="container mx-auto px-4 py-24 pt-32">
+    <section id="contact" class="mb-16">
+      <h2 class="text-4xl font-bold mb-8 text-center text-yellow-500">Contact Me</h2>
+      <div class="section-bg p-8 rounded-lg shadow-lg border border-yellow-500/20 max-w-2xl mx-auto">
+        <form id="contact-form" class="space-y-4">
+          <div id="form-success" class="hidden bg-green-500 text-white p-4 rounded mb-4 text-center">
+            Thank you for your message! I'll get back to you soon.
+          </div>
+          <div>
+            <label for="name" class="block mb-1">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="w-full p-3 rounded form-input border border-gray-600 placeholder-gray-400 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500"
+              placeholder="Your name"
+              required
+            />
+            <p id="name-error" class="form-error hidden"></p>
+          </div>
+          <div>
+            <label for="email" class="block mb-1">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="w-full p-3 rounded form-input border border-gray-600 placeholder-gray-400 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500"
+              placeholder="your.email@example.com"
+              required
+            />
+            <p id="email-error" class="form-error hidden"></p>
+          </div>
+          <div>
+            <label for="message" class="block mb-1">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              class="w-full p-3 rounded form-input border border-gray-600 placeholder-gray-400 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500"
+              placeholder="Your message..."
+              required
+            ></textarea>
+            <p id="message-error" class="form-error hidden"></p>
+          </div>
+          <button
+            type="submit"
+            id="submit-btn"
+            class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-4 rounded transition-colors duration-300"
+          >
+            <span id="submit-text">Send Message</span>
+            <span id="submit-loader" class="hidden animate-spin ml-2">⏳</span>
+          </button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-16 bg-gray-900 text-gray-300 p-6">
+    <div class="text-center">
+      <p>© <span id="current-year"></span> All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Remove the hardcoded config:
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+};
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+    document.addEventListener("DOMContentLoaded", function () {
+      // Mobile menu toggle
+      const menuToggle = document.getElementById("menu-toggle");
+      const menu = document.getElementById("mobile-menu");
+      menuToggle.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+      });
+
+      // Close mobile menu when a link is clicked (for better UX)
+      document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          menu.classList.add('hidden');
+        });
+      });
+
+      // Form validation
+      const contactForm = document.getElementById("contact-form");
+      const formSuccess = document.getElementById("form-success");
+      const submitBtn = document.getElementById("submit-btn");
+      const submitText = document.getElementById("submit-text");
+      const submitLoader = document.getElementById("submit-loader");
+
+      contactForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      document.querySelectorAll(".form-error").forEach(el => el.classList.add("hidden"));
+      let isValid = true;
+
+      // Validate name
+      const name = document.getElementById("name");
+      if (!name.value.trim()) {
+        document.getElementById("name-error").textContent = "Name is required";
+        document.getElementById("name-error").classList.remove("hidden");
+        isValid = false;
+      }
+
+      // Validate email
+      const email = document.getElementById("email");
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email.value.trim()) {
+        document.getElementById("email-error").textContent = "Email is required";
+        document.getElementById("email-error").classList.remove("hidden");
+        isValid = false;
+      } else if (!emailRegex.test(email.value)) {
+        document.getElementById("email-error").textContent = "Please enter a valid email";
+        document.getElementById("email-error").classList.remove("hidden");
+        isValid = false;
+      }
+
+      // Validate message
+      const message = document.getElementById("message");
+      if (!message.value.trim()) {
+        document.getElementById("message-error").textContent = "Message is required";
+        document.getElementById("message-error").classList.remove("hidden");
+        isValid = false;
+      }
+
+      if (isValid) {
+        // Save to Firestore
+        submitBtn.disabled = true;
+        submitText.classList.add("hidden");
+        submitLoader.classList.remove("hidden");
+        db.collection("contacts").add({
+          name: name.value,
+          email: email.value,
+          message: message.value,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(() => {
+          formSuccess.classList.remove("hidden");
+          formSuccess.scrollIntoView({ behavior: "smooth" });
+          contactForm.reset();
+          setTimeout(() => {
+            formSuccess.classList.add("hidden");
+          }, 5000);
+          submitBtn.disabled = false;
+          submitText.classList.remove("hidden");
+          submitLoader.classList.add("hidden");
+        }).catch((error) => {
+          alert("Error saving message: " + error.message);
+          submitBtn.disabled = false;
+          submitText.classList.remove("hidden");
+          submitLoader.classList.add("hidden");
+        });
+      }
+    });
+
+      // Set current year in footer
+      document.getElementById("current-year").textContent = new Date().getFullYear();
+      document.getElementById("name").focus();
+    });
+  </script>
+</body>
+</html>

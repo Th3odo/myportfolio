@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services | Divine Grace</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .service-animate {
+      transition:
+        transform 0.4s cubic-bezier(.68,-0.55,.27,1.55),
+        box-shadow 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+      will-change: transform, box-shadow;
+      cursor: pointer;
+    }
+    .service-animate:hover {
+      transform: translateY(-12px) scale(1.05) rotate(-2deg);
+      box-shadow: 0 8px 32px 0 rgba(245, 158, 11, 0.25), 0 2px 8px 0 rgba(0,0,0,0.15);
+      z-index: 2;
+    }
+    .animate-title {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(30px) scale(0.95) rotate(-2deg);
+      animation: titleFadeIn 0.9s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+      animation-delay: 0.2s;
+    }
+    @keyframes titleFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0);
+      }
+    }
+    /* Add this style for filter buttons and project cards */
+    .filter-btn {
+      @apply px-4 py-2 rounded bg-gray-800 text-yellow-300 font-semibold mr-2 mb-2 border border-yellow-300 transition-colors duration-200;
+      cursor: pointer;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      @apply bg-yellow-300 text-gray-900;
+    }
+    .project-card {
+      @apply bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border-2 border-yellow-300/20 mb-6;
+      transition: transform 0.3s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.3s cubic-bezier(.68,-0.55,.27,1.55);
+      will-change: transform, box-shadow;
+    }
+    .project-card:hover {
+      transform: translateY(-8px) scale(1.03) rotate(-1deg);
+      box-shadow: 0 8px 32px 0 rgba(245, 158, 11, 0.25), 0 2px 8px 0 rgba(0,0,0,0.15);
+      z-index: 2;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-black via-gray-800 to-gray-900 text-white">
+  <!-- Navbar -->
+  <nav class="bg-black/70 backdrop-blur-sm fixed w-full top-0 z-50">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center justify-between h-16">
+        <div class="text-yellow-300 font-bold text-xl">Divine Grace</div>
+        <div class="hidden md:flex space-x-8">
+          <a href="index.html" class="text-white hover:text-yellow-300 transition-colors">Home</a>
+          <a href="about.html" class="text-white hover:text-yellow-300 transition-colors">About</a>
+          <a href="services.html" class="text-white hover:text-yellow-300 transition-colors">Projects</a>
+          <a href="contactform.html" class="text-white hover:text-yellow-300 transition-colors">Contact</a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button 
+          class="md:hidden text-white focus:outline-none"
+          onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+          aria-label="Toggle menu"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden flex flex-col space-y-2 py-4 bg-black/50 backdrop-blur-sm">
+        <a href="index.html" class="text-white hover:text-yellow-300 transition-colors px-4 py-2">Home</a>
+        <a href="about.html" class="text-white hover:text-yellow-300 transition-colors px-4 py-2">About</a>
+        <a href="services.html" class="text-white hover:text-yellow-300 transition-colors px-4 py-2">Projects</a>
+        <a href="contactform.html" class="text-white hover:text-yellow-300 transition-colors px-4 py-2">Contact</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container mx-auto px-4 py-24 pt-32">
+    <h2 class="text-4xl font-bold mb-8 text-center text-yellow-300">
+      <span class="animate-title">My Achievements</span>
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      <div class="service-animate bg-gradient-to-br from-gray-700 to-gray-800 p-6 rounded-lg shadow-lg border-2 border-yellow-300/20">
+        <div class="flex justify-center mb-4 text-5xl">🎀</div>
+        <h2 class="text-2xl font-semibold mb-4 text-yellow-300">Graduate</h2>
+        <p class="text-gray-200">Diploma in ICT Applications Development</p>
+      </div>
+      <div class="service-animate bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-lg shadow-lg border-2 border-yellow-300/20">
+        <div class="flex justify-center mb-4 text-5xl">🎀</div>
+        <h2 class="text-2xl font-semibold mb-4 text-yellow-300">Cisco</h2>
+        <p class="text-gray-200">Introduction to Cybersecurity certificate</p>
+      </div>
+      <div class="service-animate bg-gradient-to-br from-gray-900 to-black p-6 rounded-lg shadow-lg border-2 border-yellow-300/20">
+        <div class="flex justify-center mb-4 text-5xl">🎀</div>
+        <h2 class="text-2xl font-semibold mb-4 text-yellow-300">Cisco</h2>
+        <p class="text-gray-200">Networking Essentials certificate</p>
+      </div>
+    </div>
+
+    <!-- Projects & Skills Section -->
+    <section class="mt-16">
+      <h2 class="text-3xl font-bold mb-6 text-yellow-300 text-center">Projects & Skills</h2>
+      <!-- Filter Buttons -->
+      <div class="flex flex-col items-center mb-8">
+        <div id="filter-buttons" class="flex flex-wrap justify-center mb-4"></div>
+        <!-- Search Input -->
+        <input
+          id="project-search"
+          type="text"
+          placeholder="Search projects..."
+          class="w-full max-w-xs px-4 py-2 rounded border border-yellow-300 bg-gray-800 text-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 transition"
+        />
+      </div>
+      <!-- Projects List -->
+      <div id="projects-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </section>
+  </div>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.querySelector('[aria-label="Toggle menu"]');
+    const menu = document.getElementById("mobile-menu");
+    if (menuToggle && menu) {
+      // Toggle menu on button click
+      menuToggle.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+      });
+      // Close menu when a link is clicked
+      menu.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+          menu.classList.add("hidden");
+        });
+      });
+    }
+  });
+
+  // --- Filterable Projects Section ---
+  // Expand your skills/tags for filtering
+  const skills = [
+    "All", "JavaScript", "React", "HTML", "CSS", "Python", "Node.js", "Express", "MongoDB", "Firebase", "Tailwind", "Bootstrap", "C#", "Java", "PHP", "SQL", "Django", "Flask", "TypeScript"
+  ];
+
+  // Render filter buttons
+  const filterButtons = document.getElementById("filter-buttons");
+  skills.forEach(skill => {
+    const btn = document.createElement("button");
+    btn.textContent = skill;
+    btn.className = "filter-btn" + (skill === "All" ? " active" : "");
+    btn.setAttribute("data-skill", skill);
+    filterButtons.appendChild(btn);
+  });
+
+  // Fetch GitHub repositories dynamically
+  async function fetchRepos() {
+    // Use your actual GitHub username here
+    const username = "Th3odo";
+    const res = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
+    if (!res.ok) return [];
+    return await res.json();
+  }
+
+  // Map repo names or descriptions to skills/tags (customize as needed)
+  function getRepoSkills(repo) {
+    const map = {
+      "react": ["React", "JavaScript"],
+      "vite": ["React", "JavaScript"],
+      "portfolio": ["HTML", "CSS", "JavaScript", "Tailwind"],
+      "api": ["Node.js", "Express", "JavaScript"],
+      "node": ["Node.js", "JavaScript"],
+      "express": ["Express", "Node.js", "JavaScript"],
+      "mongo": ["MongoDB", "Node.js"],
+      "firebase": ["Firebase", "JavaScript"],
+      "tailwind": ["Tailwind", "CSS"],
+      "bootstrap": ["Bootstrap", "CSS"],
+      "python": ["Python"],
+      "django": ["Django", "Python"],
+      "flask": ["Flask", "Python"],
+      "typescript": ["TypeScript", "JavaScript"],
+      "csharp": ["C#"],
+      "java": ["Java"],
+      "php": ["PHP"],
+      "sql": ["SQL"],
+      // Add more mappings as needed
+    };
+    let tags = [];
+    Object.keys(map).forEach(key => {
+      if (
+        repo.name.toLowerCase().includes(key) ||
+        (repo.description && repo.description.toLowerCase().includes(key))
+      ) {
+        tags = tags.concat(map[key]);
+      }
+    });
+    // Always include All
+    tags.push("All");
+    // Remove duplicates
+    return [...new Set(tags)];
+  }
+
+  let allRepos = [];
+  let currentFilter = "All";
+  let currentSearch = "";
+
+  // Update renderProjects to accept search
+  function renderProjects(repos, filter = "All", search = "") {
+    const projectsList = document.getElementById("projects-list");
+    projectsList.innerHTML = "";
+    repos.forEach(repo => {
+      const tags = getRepoSkills(repo);
+      const matchesFilter = filter === "All" || tags.includes(filter);
+
+      // Allow search by project name, description, or skill/tag
+      const searchLower = search.toLowerCase();
+      const tagString = tags.join(" ").toLowerCase();
+      const matchesSearch =
+        repo.name.toLowerCase().includes(searchLower) ||
+        (repo.description && repo.description.toLowerCase().includes(searchLower)) ||
+        tagString.includes(searchLower);
+
+      if (matchesFilter && matchesSearch) {
+        const card = document.createElement("div");
+        card.className = "project-card";
+        card.innerHTML = `
+          <h3 class="text-xl font-bold mb-2 text-yellow-300">${repo.name}</h3>
+          <p class="mb-2 text-gray-200">${repo.description || "No description provided."}</p>
+          <div class="mb-2">
+            ${tags.filter(t => t !== "All").map(tag => `<span class="inline-block bg-yellow-300 text-gray-900 text-xs px-2 py-1 rounded mr-2 mb-1">${tag}</span>`).join("")}
+          </div>
+          <a href="${repo.html_url}" target="_blank" class="text-yellow-300 hover:underline">View on GitHub</a>
+        `;
+        projectsList.appendChild(card);
+      }
+    });
+  }
+
+  // Main logic
+  fetchRepos().then(repos => {
+    allRepos = repos;
+    renderProjects(allRepos, currentFilter, currentSearch);
+  });
+
+  // Filter button click
+  filterButtons.addEventListener("click", e => {
+    if (e.target.matches(".filter-btn")) {
+      document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+      e.target.classList.add("active");
+      currentFilter = e.target.getAttribute("data-skill");
+      renderProjects(allRepos, currentFilter, currentSearch);
+    }
+  });
+
+  // Search input event
+  document.getElementById("project-search").addEventListener("input", e => {
+    currentSearch = e.target.value.trim().toLowerCase();
+    renderProjects(allRepos, currentFilter, currentSearch);
+  });
+</script>
+</body>
+</html>
